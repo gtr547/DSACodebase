@@ -30,8 +30,8 @@ int findUnique(vector<int> arr){
     {
         if (arr[j]!=arr[i])
         {
+            arr[i+1] = arr[j];
             i++;
-            arr[i]=arr[j];
         }
         
     }
