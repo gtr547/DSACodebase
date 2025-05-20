@@ -5,23 +5,23 @@ using namespace std;
 
 
 // brute force solution using hashset 
-// int findUnique(vector<int> arr){
-//     set<int> hst;
-//     for (int i = 0; i < arr.size(); i++)
-//     {
-//         hst.insert(arr[i]);
-//     }
+int findUnique(vector<int> arr){
+    set<int> hst;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        hst.insert(arr[i]);
+    }
 
-//     int i = 0;
+    int i = 0;
 
-//     for(auto it: hst){
-//         arr[i] = it;
-//         i++;
-//     }
+    for(auto it: hst){
+        arr[i] = it;
+        i++;
+    }
 
-//     return i;
+    return i;
     
-// }
+}
 
 // optimal solution using two pointer approach
 int findUnique(vector<int> arr){
