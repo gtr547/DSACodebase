@@ -1,4 +1,4 @@
-// Given an array find the largest element in that array
+// Given an array find the second largest element in that array
 
 
 #include <bits/stdc++.h>
