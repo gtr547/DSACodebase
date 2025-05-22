@@ -43,6 +43,8 @@ void MoveZeroes(vector<int>& arr){
         
     }
 
+    if(j==-1) return;
+
     // starting a loop from j+1, and checking each element, if its non zero then, swap its element with j 
     for (int i = j+1; i < arr.size(); i++)
     {
