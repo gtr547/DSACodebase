@@ -77,8 +77,9 @@ int missingNum(vector<int> arr, int a){
     {
         xor2 ^= arr[i];
         xor1 ^= (i+1);
-        xor1 ^= a;
+        
     }
+    xor1 ^= a;
 
     return xor1 ^ xor2;  
 
