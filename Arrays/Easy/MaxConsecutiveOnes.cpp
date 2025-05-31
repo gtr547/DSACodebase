@@ -1,4 +1,4 @@
-// Given an integer N and an array of size N-1 containing N-1 numbers between 1 to N. Find the number(between 1 to N), that is not present in the given array.
+//  Given an array that contains only 1 and 0 return the count of maximum consecutive ones in the array.
 
 #include <bits/stdc++.h>
 using namespace std;
