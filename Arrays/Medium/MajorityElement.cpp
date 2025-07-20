@@ -35,24 +35,74 @@ using namespace std;
 
 
 // better approach (hashing)
+// int majElem(vector<int> &arr){
+//     int n =  arr.size();
+
+//     map<int, int> mpp;
+
+//     for (int i = 0; i < n; i++)
+//     {
+//         mpp[arr[i]]++;
+//     }
+
+//     for (auto it :mpp)
+//     {
+//         if(it.second > n / 2){
+//             return it.first;
+//         }
+//     }
+    
+//     return -1;
+
+// }
+
+
+// optimal approach (using Moore's voting algorithm)
 int majElem(vector<int> &arr){
     int n =  arr.size();
+    
+    int cnt = 0;
+    int elem;
 
-    map<int, int> mpp;
-
+    // finding the majority elem if it exist
     for (int i = 0; i < n; i++)
     {
-        mpp[arr[i]]++;
+        if (cnt == 0)
+        {
+            cnt = 1;
+            elem = arr[i];
+        }
+        else if (arr[i] == elem)
+        {
+            cnt ++;
+        }
+        else
+        {
+            cnt --;
+        }
+        
     }
 
-    for (auto it :mpp)
+    // checking if a majority elem exist in the array
+    int cnt2 = 0;
+    for (int i = 0; i < n; i++)
     {
-        if(it.second > n / 2){
-            return it.first;
+        if (arr[i] == elem)
+        {
+            cnt2 ++;
         }
+        
+    }
+
+    if (cnt2 > (n/2))
+    {
+        return elem;
+    }
+    else
+    {
+        return -1;
     }
     
-    return -1;
 
 }
 
