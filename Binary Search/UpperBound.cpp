@@ -1,20 +1,17 @@
-// Given a sorted array of N integers and an integer K, write a program to find the lower bound of K.
+// Given a sorted array of N integers and an integer k, write a program to find the upper bound of k.
 
 #include <bits/stdc++.h>
 using namespace std;
 
-// Time Complexity is similar to binary search O(log n)
-int lowerBound(vector<int>& arr, int k){
+int upperBound(vector<int>& arr, int k){
     int n = arr.size();
     int low = 0, high = n-1;
     int ans = n;
 
-    while (low <= high)
-    {
+    while(low <= high){
         int mid = low + (high - low) / 2;
 
-        if (arr[mid] >= k)
-        {
+        if(arr[mid] > k){
             ans = mid;
             high = mid - 1;
         }
@@ -25,7 +22,9 @@ int lowerBound(vector<int>& arr, int k){
         
     }
     return ans;
+
 }
+
 
 int main() {
     // Write your code here
@@ -46,7 +45,7 @@ int main() {
     int k = 0;
     cin>>k;
     
-    cout<<"The lower bound of "<<k<<" is "<<lowerBound(arr, k);
+    cout<<"The upper bound of "<<k<<" is "<<upperBound(arr, k);
    
 
     return 0;
