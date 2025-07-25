@@ -5,7 +5,7 @@
 using namespace std;
 
 
-// simple approach using linear search
+// simple approach using linear search O(n)
 // pair<int,int> ls(vector<int>& arr, int k){
 //     int n = arr.size();
 //     int first = -1, last = -1;
@@ -24,39 +24,107 @@ using namespace std;
 //     return make_pair(first, last);
 // }
 
-int lowerBound(vector<int>& arr, int k){
+
+// optimal approach using binary search (with lower_bound and upper_bound concept - O(2*log n))
+// int lowerBound(vector<int>& arr, int k){
+//     int n = arr.size();
+//     int low = 0, high = n-1;
+//     int ans = n;
+
+//     while (low <= high)
+//     {
+//         int mid = low + (high - low) / 2;
+
+//         if (arr[mid] >= k)
+//         {
+//             ans = mid;
+//             high = mid - 1;
+//         }
+//         else
+//         {
+//             low = mid + 1;
+//         }
+        
+//     }
+//     return ans;
+// }
+
+// int upperBound(vector<int>& arr, int k){
+//     int n = arr.size();
+//     int low = 0, high = n-1;
+//     int ans = n;
+
+//     while(low <= high){
+//         int mid = low + (high - low) / 2;
+
+//         if(arr[mid] > k){
+//             ans = mid;
+//             high = mid - 1;
+//         }
+//         else
+//         {
+//             low = mid + 1;
+//         }
+        
+//     }
+//     return ans;
+
+// }
+
+// pair<int,int> findFirstAndLastOccurrance(vector<int>& arr, int k){
+//     int n = arr.size();
+//     int lb = lowerBound(arr, k);
+    
+//     if(lb == n || arr[lb] != k) return {-1, -1};
+//     return{lb, upperBound(arr, k) - 1};
+    
+// }
+
+
+// optimal solution using binary search (without lower_bound and upper_bound)
+int first(vector<int>& arr, int k){
     int n = arr.size();
     int low = 0, high = n-1;
-    int ans = n;
+    int fst = -1;
 
     while (low <= high)
     {
         int mid = low + (high - low) / 2;
 
-        if (arr[mid] >= k)
+        if (arr[mid] == k)
         {
-            ans = mid;
+            fst = mid;
             high = mid - 1;
         }
-        else
+        else if(arr[mid] < k)
         {
             low = mid + 1;
         }
+        else
+        {
+            high = mid - 1;
+        }
         
     }
-    return ans;
+    return fst;
 }
 
-int upperBound(vector<int>& arr, int k){
+int last(vector<int>& arr, int k){
     int n = arr.size();
     int low = 0, high = n-1;
-    int ans = n;
+    int lst = -1;
 
-    while(low <= high){
+    while (low <= high)
+    {
         int mid = low + (high - low) / 2;
 
-        if(arr[mid] > k){
-            ans = mid;
+        if (arr[mid] == k)
+        {
+            lst = mid;
+            low = mid + 1;
+        }
+        else if(arr[mid] > k)
+        {
             high = mid - 1;
         }
         else
@@ -64,20 +132,10 @@ int upperBound(vector<int>& arr, int k){
             low = mid + 1;
         }
         
+        
     }
-    return ans;
-
+    return lst;
 }
-
-pair<int,int> findFirstAndLastOccurrance(vector<int>& arr, int k){
-    int n = arr.size();
-    int lb = lowerBound(arr, k);
-    
-    if(lb == n || arr[lb] != k) return {-1, -1};
-    return{lb, upperBound(arr, k) - 1};
-    
-}
-
 
 
 int main() {
@@ -99,9 +157,12 @@ int main() {
     int k = 0;
     cin>>k;
     
-    pair<int, int> ans = findFirstAndLastOccurrance(arr, k);
+    
+    // pair<int, int> ans = findFirstAndLastOccurrance(arr, k);
 
-    cout<<"["<<ans.first<<" "<<ans.second<<"]";
+    // cout<<"["<<ans.first<<" "<<ans.second<<"]";
+
+    cout<<first(arr, k)<<" "<<last(arr, k);
     
     
     return 0;
