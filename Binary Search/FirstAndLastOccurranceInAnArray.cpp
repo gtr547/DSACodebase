@@ -137,6 +137,13 @@ int last(vector<int>& arr, int k){
     return lst;
 }
 
+pair<int, int> findFirstAndLastOccurrance(vector<int>& arr, int k){
+    int firstOcc = first(arr, k);
+    if (firstOcc == -1) return {-1, -1};
+    
+    return {firstOcc, last(arr, k)};
+    
+}
 
 int main() {
     // Write your code here
@@ -158,12 +165,9 @@ int main() {
     cin>>k;
     
     
-    // pair<int, int> ans = findFirstAndLastOccurrance(arr, k);
+    pair<int, int> ans = findFirstAndLastOccurrance(arr, k);
 
-    // cout<<"["<<ans.first<<" "<<ans.second<<"]";
-
-    cout<<first(arr, k)<<" "<<last(arr, k);
-    
+    cout<<"["<<ans.first<<" "<<ans.second<<"]";
     
     return 0;
 }
