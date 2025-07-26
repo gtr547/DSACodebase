@@ -18,7 +18,7 @@ bool search(vector<int>& arr, int k ){
         }
         
         //Shrinking down the search space to handle duplicates
-        if(arr[low] == arr[mid] == arr[high]){
+        if(arr[low] == arr[mid] && arr[mid] == arr[high]){
             low ++;
             high --;
             continue;
