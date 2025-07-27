@@ -29,6 +29,7 @@ bool search(vector<int>& arr, int k ){
         if (arr[low] <= arr[mid])
         {
             // check if elem lies in the sorted half
+            
             if (arr[low] <= k && k <= arr[mid])
             {
                 high = mid - 1;
