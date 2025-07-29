@@ -9,18 +9,52 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// /naive solution using linear search
+// naive solution using linear search
+// int findPeak(vector<int> &arr){
+//     int n = arr.size();
+
+//     for(int i = 0; i<n; i++){
+//         if ((i==0 || arr[i-1] < arr[i]) &&(i == n-1 || arr[i] > arr[i+1]))
+//         {
+//             return i;
+//         }
+//     }
+//     return -1;
+// }
+
+// optimal solution using binary search algorithm
 int findPeak(vector<int> &arr){
     int n = arr.size();
 
-    for(int i = 0; i<n; i++){
-        if ((i==0 || arr[i-1] < arr[i]) &&(i == n-1 || arr[i] > arr[i+1]))
+    if (n == 1) return arr[0];
+    if (arr[0] > arr[1] ) return arr[0];
+    if (arr[n-1] > arr[n-2]) return arr[n-1];
+    
+    int low = 1, high = n-2;
+
+    while (low <= high)
+    {
+        int mid = low + (high - low) / 2;
+
+        // check if the mid elem is peak
+        if (arr[mid - 1] < arr[mid] && arr[mid] > arr[mid + 1])
         {
-            return i;
+            return arr[mid];
         }
+
+        // if mid is in the increasing curve
+        if(arr[mid] > arr[mid - 1]){
+            low = mid + 1;
+        }
+        else{
+            high = mid - 1;
+        }
+        
     }
     return -1;
+    
 }
+
 
 int main() {
     // Write your code here
