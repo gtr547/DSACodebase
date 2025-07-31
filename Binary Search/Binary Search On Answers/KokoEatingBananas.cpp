@@ -25,24 +25,42 @@ long long totalTime(vector<int>& arr, int mid, int h){
 }
 
 // naive approach - O(maxVal)
-int minEatingSpeed(vector<int>& arr, double h){
+// int minEatingSpeed(vector<int>& arr, double h){
+//     int n = arr.size();
+//     int maxVal = *max_element(arr.begin(), arr.end());
+
+//     for (int i = 1; i <= maxVal; i++)
+//     {
+//         int reqTime = totalTime(arr, i, h);
+
+//         if (reqTime <= h)
+//         {
+//             return i;
+//         }
+//     }
+//     return -1; 
+// }
+
+// optimized approach Using Binary Search - O(log M)
+int minEatingSpeed(vector<int>& arr, int h){
     int n = arr.size();
-    int maxVal = *max_element(arr.begin(), arr.end());
+    int low = 1, high = *max_element(arr.begin(), arr.end());
+    
 
-    for (int i = 1; i <= maxVal; i++)
+    while (low <= high)
     {
-        int reqTime = totalTime(arr, i, h);
+        int mid = low + (high - low) / 2;
 
-        if (reqTime <= h)
-        {
-            return i;
+        if(totalTime(arr, mid, h)<= h){
+            high = mid - 1;
+        }
+        else{
+            low = mid + 1;
         }
     }
-    return -1; 
+    return low;
+    
 }
-
-
-
 
 
 int main() {
