@@ -10,16 +10,20 @@
 // If the allocation of books is not possible. return -1
 
 
+
+
 #include <bits/stdc++.h>
 using namespace std;
 
 // helper function
-int cntStud(vector<int>& arr, int pages){
-    int n = arr.size();
+int cntStud(vector<int>& arr, int pages, int k){
+    
     int stud = 1, studpageCnt = 0;
 
-    for (int  i = 0; i < n; i++)
+    for (int  i = 0; i < arr.size(); i++)
     {
+        if(stud > k) return stud;
+
         if(studpageCnt + arr[i] <= pages){
             studpageCnt += arr[i];
         }
@@ -34,22 +38,53 @@ int cntStud(vector<int>& arr, int pages){
 }
 
 // naive approach using linear search - O((sum - max + 1)*N)
-int bookAllocation(vector<int>& arr, int k){
+// int bookAllocation(vector<int>& arr, int k){
 
-    if (arr.size() < k)
-    {
-        return -1;
-    }
+    // if (arr.size() < k)
+    // {
+    //     return -1;
+    // }
     
 
-    int low = *max_element(arr.begin(), arr.end());
-    int high = accumulate(arr.begin(), arr.end(), 0);
+//     int low = *max_element(arr.begin(), arr.end());
+//     int high = accumulate(arr.begin(), arr.end(), 0);
 
-    for (int i = low; i <= high; i++)
+//     for (int i = low; i <= high; i++)
+//     {
+//         if(cntStud(arr, i) == k) return i;
+//     }
+//     return -1;
+// }
+
+int bookAllocation(vector<int>& arr, int k){
+
+     if (arr.size() < k) return -1;
+    
+    
+    int low = *max_element(arr.begin(), arr.end());    
+    int high = accumulate(arr.begin(), arr.end(), 0);
+    
+    // Insted of using STL function to find the "low" and "high", we can use a loop 
+    // for(int book: arr){
+    //     low = max(low, book);
+    //     high += book;
+    // }
+
+    while (low <= high)
     {
-        if(cntStud(arr, i) == k) return i;
+        int mid = low + (high - low) / 2;
+        
+        if (cntStud(arr, mid, k) > k)
+        {
+            low = mid + 1;
+        }
+        else
+        {
+            high = mid - 1;
+        }
+
     }
-    return -1;
+    return low ;
 }
 
 int main() {
@@ -75,3 +110,6 @@ int main() {
 
     return 0;
 }
+
+
+// note: This problem is similar to problems like "Painters Partition" ,"Minimum Page Alloacation" and "Split Array Largest Sum". So the same solution can be used.
