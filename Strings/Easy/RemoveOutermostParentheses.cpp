@@ -54,9 +54,7 @@ string removeOuterParentheses(string s) {
 
 
 int main() {
-    string str;
-    
-    
+    string str; 
     cin >> str;
     
     cout <<removeOuterParentheses(str)<< endl;
