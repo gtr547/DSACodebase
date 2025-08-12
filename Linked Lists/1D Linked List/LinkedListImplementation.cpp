@@ -37,7 +37,19 @@ Node* convertToLL(vector<int> &arr){
 
 }
 
+int length(Node* head){
+    int cnt = 0;
 
+    // traverse the linked list
+    Node* temp = head;
+    while (temp != nullptr)
+    {
+        temp = temp->next;
+        cnt ++;
+    }
+    return cnt;
+    
+}
 
 int main() {
     // Write your code here
@@ -48,7 +60,6 @@ int main() {
     cout<<head->data<<endl;
 
     // linked list traversal
-
     Node* temp = head;
     
     while (temp != nullptr)
@@ -57,6 +68,8 @@ int main() {
         temp = temp->next;
     }
     
+    //length of the linked list
+    cout<<"\n"<<length(head);
 
     return 0;
 }
