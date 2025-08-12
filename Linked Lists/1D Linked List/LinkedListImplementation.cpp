@@ -41,11 +41,22 @@ Node* convertToLL(vector<int> &arr){
 
 int main() {
     // Write your code here
-    vector<int> arr = {92,5,8,7};
+    vector<int> arr = {2,5,8,7,10,13,15};
 
     Node* head = convertToLL(arr);
 
-    cout<<head->data;
+    cout<<head->data<<endl;
+
+    // linked list traversal
+
+    Node* temp = head;
+    
+    while (temp != nullptr)
+    {
+        cout<<temp->data<<" ";
+        temp = temp->next;
+    }
+    
 
     return 0;
 }
