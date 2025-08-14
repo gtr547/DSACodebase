@@ -83,6 +83,47 @@ Node* delTail(Node* head){
     return head;
 }
 
+// Deleting the kth element in a linked list
+Node* delKth(Node* head, int k){
+    // edge case (if the list is empty)
+    if(head == NULL) return head;
+
+    // if deleting the first element
+    if(k == 1){
+        Node* temp = head;
+
+        head = head->next;
+
+        delete temp;
+
+        return head;
+    }
+
+    int cnt = 0;
+
+    Node* prev = NULL;
+    Node* temp = head;
+
+    // traverse the entire list
+    while (temp != NULL)
+    {
+        cnt++;
+
+        if(cnt == k){
+            // link the before element and the after element.
+            prev->next = prev->next->next;
+            // delete the current element
+            delete temp;
+            break;
+        }
+        // store the previous element
+        prev = temp;
+        temp = temp->next;
+    }
+
+    return head;
+}
+
 
 
 int main() {
@@ -103,12 +144,12 @@ int main() {
     
     Node* head = toLL(arr);
 
-    // int k = 0;
-    // cin>>k;
+    int k = 0;
+    cin>>k;
    
     print(head);
     cout<<endl;
-    head = delTail(head);
+    head = delKth(head, k);
     print(head);
     
     return 0;
