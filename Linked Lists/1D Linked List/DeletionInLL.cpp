@@ -44,6 +44,9 @@ Node* toLL(vector<int> arr){
 
 // Deleting the head of a linked list
 Node* delHead(Node* head){
+    // edge case (in case the list is empty)
+    if (head == NULL) return head;
+    
     // store the original head, so that we can free memory safely;
     Node* temp = head;
 
