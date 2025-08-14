@@ -124,6 +124,43 @@ Node* delKth(Node* head, int k){
     return head;
 }
 
+// Deleting a node(by value) in a linked list
+Node* delVal(Node* head, int val){
+    // edge case (if the list is empty)
+    if(head == NULL) return head;
+
+    // if deleting the first element
+    if(head->data == val){
+        Node* temp = head;
+
+        head = head->next;
+
+        delete temp;
+
+        return head;
+    }
+
+    Node* prev = NULL;
+    Node* temp = head;
+
+    // traverse the entire list
+    while (temp != NULL)
+    {
+
+        if(temp->data == val){
+            // link the before element and the after element.
+            prev->next = prev->next->next;
+            // delete the current element
+            delete temp;
+            break;
+        }
+        // store the previous element
+        prev = temp;
+        temp = temp->next;
+    }
+
+    return head;
+}
 
 
 int main() {
@@ -149,7 +186,7 @@ int main() {
    
     print(head);
     cout<<endl;
-    head = delKth(head, k);
+    head = delVal(head, k);
     print(head);
     
     return 0;
