@@ -61,6 +61,28 @@ Node* delHead(Node* head){
     
 }
 
+// Deleting the tail of a linked list 
+Node* delTail(Node* head){
+    // Edge case( if the list is empty or has only one element)
+    if(head == NULL || head->next == NULL) return NULL;
+
+    // store the original head, so that we can free memory safely;
+    Node* temp = head;
+
+    // traverse untill we are at the n-2 node
+    while (temp->next->next != NULL)
+    {
+        temp = temp->next;
+    }
+
+    // delete the tail and asiign null pointer to n-2th element
+    delete temp->next;
+    temp->next = nullptr;
+    
+    // return head
+    return head;
+}
+
 
 
 int main() {
@@ -86,7 +108,7 @@ int main() {
    
     print(head);
     cout<<endl;
-    head = delHead(head);
+    head = delTail(head);
     print(head);
     
     return 0;
