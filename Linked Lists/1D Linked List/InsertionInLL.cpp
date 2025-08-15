@@ -66,6 +66,35 @@ Node* insertTail(Node*head, int el){
     return head;
 }
 
+// inserting at kth position in the linked list 
+Node* insertK(Node* head, int el, int k){
+    if(head == NULL){
+        if(k == 1) return new Node(el);
+    }
+    
+    if(k == 1){
+        Node* temp = new Node(el, head);
+        return temp;
+    }
+
+    // if k >= 2
+    int cnt = 0;
+    Node* temp = head;
+
+    while(temp != NULL){
+        cnt++;
+        if(cnt == (k-1)){
+            Node* newNode = new Node(el);
+            newNode->next = temp->next;
+            temp->next = newNode;
+            break;
+        }
+        temp = temp->next;
+
+    }
+    return head;
+}
+
 
 int main() {
     // Write your code here
@@ -85,15 +114,15 @@ int main() {
     
     Node* head = toLL(arr);
 
-    // int k = 0;
-    // cin>>k;
+    int k = 0;
+    cin>>k;
     
     int el;
     cin>>el;
 
     print(head);
     cout<<endl;
-    head = insertTail(head, el);
+    head = insertK(head, el, k);
     print(head);
     
     
