@@ -45,9 +45,25 @@ Node* toLL(vector<int> arr){
 // inserting at the head of the linked list
 Node* insertHead(Node* head, int el){
 
-    Node* temp = new Node(el);
-    temp->next = head;
+    Node* temp = new Node(el, head);
+    
     return temp;
+}
+
+// inserting at the tail of the linked list'
+Node* insertTail(Node*head, int el){
+    if(head == NULL) return new Node(el);
+
+    Node* temp = head;
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+
+    Node* lastNode = new Node(el);
+    temp->next  = lastNode;
+    
+    return head;
 }
 
 
@@ -77,7 +93,7 @@ int main() {
 
     print(head);
     cout<<endl;
-    head = insertHead(head, el);
+    head = insertTail(head, el);
     print(head);
     
     
