@@ -33,27 +33,27 @@ Node* toLL(vector<int> arr){
 }
 
 // naive approach - T.C -> O(N + N/2), S.C -> O(1)
-Node* findMid(Node* head){
-    Node* temp = head;
-    int cnt  = 0;
+// Node* findMid(Node* head){
+//     Node* temp = head;
+//     int cnt  = 0;
 
-    while(temp!= NULL){
-        cnt ++;
-        temp = temp->next;
-    }
+//     while(temp!= NULL){
+//         cnt ++;
+//         temp = temp->next;
+//     }
     
-    int mid = (cnt / 2) + 1;
+//     int mid = (cnt / 2) + 1;
 
-    temp = head;
-    while (temp != NULL)
-    {
-        mid--;
-        if(mid == 0) break;
-        temp = temp->next;
-    }
-    return temp;
+//     temp = head;
+//     while (temp != NULL)
+//     {
+//         mid--;
+//         if(mid == 0) break;
+//         temp = temp->next;
+//     }
+//     return temp;
 
-}
+// }
 
 // Optimized solution using Tortoise & Hare algorithm. T.C - O(N/2)
 Node* findMid(Node* head){
