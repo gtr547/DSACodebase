@@ -55,6 +55,19 @@ Node* findMid(Node* head){
 
 }
 
+// Optimized solution using Tortoise & Hare algorithm. T.C - O(N/2)
+Node* findMid(Node* head){
+    Node* slow = head;
+    Node* fast = head;
+
+    while (fast != NULL && fast->next != NULL )
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow; 
+}
+
 
 int main() {
     // Write your code here
