@@ -43,27 +43,42 @@ void print(Node* head){
 }
 
 // naive approach using stack T.C -> O(2N) S.C -> O(N)
+// Node* revLL(Node* head){
+//     stack<int> st;
+//     Node* temp = head;
+
+//     while(temp)
+//     {
+//         st.push(temp->data);
+//         temp = temp->next;
+//     }
+
+//     temp = head;
+
+//     while (temp)
+//     {
+//         temp->data = st.top();
+//         st.pop();
+//         temp = temp->next;
+//     }
+
+//     return head;
+// }
+
+// Optimal approach T.C - O(N), S.C - O(1)
 Node* revLL(Node* head){
-    stack<int> st;
     Node* temp = head;
+    Node* prev = nullptr;
 
-    while(temp)
-    {
-        st.push(temp->data);
-        temp = temp->next;
+    while(temp){
+        Node* front = temp->next;
+        temp->next = prev;
+        prev = temp;
+        temp = front;
     }
-
-    temp = head;
-
-    while (temp)
-    {
-        temp->data = st.top();
-        st.pop();
-        temp = temp->next;
-    }
-
-    return head;
+    return prev;
 }
+
 
 
 int main() {
