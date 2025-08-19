@@ -63,7 +63,7 @@ Node* createCycle(Node* head, int k){
 }
 
 // optimal solution to find the length of a cycle in a linked list using Flyods Tortoise and hare algorithm
-int startingNode(Node* head){
+int loopLength(Node* head){
     if(head == nullptr || head->next == nullptr) return 0;
     Node* slow = head;
     Node* fast = head;
@@ -111,7 +111,7 @@ int main() {
 
     head = createCycle(head, k);
 
-    cout<<startingNode(head);
+    cout<<loopLength(head);
     
     return 0;
 }
