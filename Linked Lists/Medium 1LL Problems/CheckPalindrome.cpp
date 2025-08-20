@@ -43,15 +43,11 @@ bool isPalindrome(Node* head){
     }
 
     temp = head;
-    while (temp != nullptr || !st.empty())
+    while (temp != nullptr)
     {
-        if(temp->data == st.top()){
-            st.pop();
-            temp = temp->next;
-            continue;
-        }
-        else
-            return false;
+        if(temp->data != st.top()) return false;
+        st.pop();
+        temp = temp->next;
     }
     return true;    
 }
