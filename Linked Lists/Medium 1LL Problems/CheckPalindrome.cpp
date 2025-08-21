@@ -32,24 +32,76 @@ Node* toLL(vector<int> arr){
 }
 
 // Naive approach   T.C - O(2N)  S.C - O(N)
-bool isPalindrome(Node* head){
-    stack<int> st;
+// bool isPalindrome(Node* head){
+//     stack<int> st;
 
+//     Node* temp = head;
+
+//     while(temp != nullptr){
+//         st.push(temp->data);
+//         temp = temp->next;
+//     }
+
+//     temp = head;
+//     while (temp != nullptr)
+//     {
+//         if(temp->data != st.top()) return false;
+//         st.pop();
+//         temp = temp->next;
+//     }
+//     return true;    
+// }
+
+// reverse linked list
+Node* revLL(Node* head){
     Node* temp = head;
+    Node* prev = nullptr;
 
-    while(temp != nullptr){
-        st.push(temp->data);
-        temp = temp->next;
-    }
-
-    temp = head;
     while (temp != nullptr)
     {
-        if(temp->data != st.top()) return false;
-        st.pop();
-        temp = temp->next;
+        Node* front = temp->next;
+        temp->next = prev;
+        prev = temp;
+        temp = front;
     }
-    return true;    
+    return prev;
+}
+
+
+// optimal solution
+bool isPalindrome(Node* head){
+    // Finding the mid of the list 
+    Node* slow = head;
+    Node* fast = head;
+
+    while(fast->next != nullptr && fast->next->next != nullptr){
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+
+    // now we have the mid as 'slow'
+    
+    // reversing the left sub linked list
+    Node* newHead = revLL(slow->next);
+
+    // now the left sub linked list is reversed and 'newHead' containst the new head of the reversed linked list
+
+    // now we compare using two pointers
+    Node* first = head;
+    Node* second = newHead;
+
+    while (second != nullptr)
+    {
+        if(first->data != second->data){
+            slow->next = revLL(newHead);
+            return false;
+        }
+        first = first->next;
+        second = second->next;
+    }
+    slow->next = revLL(newHead);
+    return true;
 }
 
 int main() {
