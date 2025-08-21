@@ -51,6 +51,8 @@ void print(Node* head){
 
 // naive approach
 Node* oddEven(Node* head){
+    if(head == nullptr || head->next == nullptr) return head;
+    
     vector<int> arr;
 
     Node* temp = head;
