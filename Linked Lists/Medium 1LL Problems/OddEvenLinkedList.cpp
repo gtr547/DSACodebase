@@ -49,46 +49,67 @@ void print(Node* head){
 }
 
 
-// naive approach
+// naive approach  T.C - O(2N) S.C - O(N)
+// Node* oddEven(Node* head){
+//     if(head == nullptr || head->next == nullptr) return head;
+    
+//     vector<int> arr;
+
+//     Node* temp = head;
+
+//     // for odd indexed elements
+//     while (temp != nullptr && temp->next != nullptr)
+//     {
+//         arr.push_back(temp->data);
+//         temp = temp->next->next;
+//     }
+//     if (temp) arr.push_back(temp->data); 
+
+//     temp = head->next;
+
+//     // for even indexed elements
+//     while (temp != nullptr && temp->next != nullptr)
+//     {
+//         arr.push_back(temp->data);
+//         temp = temp->next->next;
+//     }
+//     if (temp) arr.push_back(temp->data); 
+
+//     temp = head;
+//     int i = 0;
+
+//     while (temp != nullptr && i<arr.size())
+//     {
+//         temp->data = arr[i];
+//         temp = temp->next;
+//         i++;
+//     }
+
+//     return head;
+      
+// }
+
+// Optimal approach T.C - O(N) S.C - O(1)
 Node* oddEven(Node* head){
     if(head == nullptr || head->next == nullptr) return head;
-    
-    vector<int> arr;
+    Node* odd = head;
+    Node* even = head->next;
+    Node* evenHead = head->next;
 
-    Node* temp = head;
-
-    // for odd indexed elements
-    while (temp != nullptr && temp->next != nullptr)
+    while (even != nullptr && even->next != nullptr)
     {
-        arr.push_back(temp->data);
-        temp = temp->next->next;
+        odd->next = odd->next->next;
+        odd = odd->next;
+
+        even->next = even->next->next;
+        even = even->next;
     }
-    if (temp) arr.push_back(temp->data); 
 
-    temp = head->next;
-
-    // for even indexed elements
-    while (temp != nullptr && temp->next != nullptr)
-    {
-        arr.push_back(temp->data);
-        temp = temp->next->next;
-    }
-    if (temp) arr.push_back(temp->data); 
-
-    temp = head;
-    int i = 0;
-
-    while (temp != nullptr && i<arr.size())
-    {
-        temp->data = arr[i];
-        temp = temp->next;
-        i++;
-    }
+    odd->next = evenHead;
 
     return head;
-      
+    
 }
-
 
 int main() {
     // Write your code here
