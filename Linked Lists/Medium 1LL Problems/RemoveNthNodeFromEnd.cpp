@@ -52,36 +52,58 @@ void print(Node* head){
     
 }
 
-// naive approach   T.c - O(2N)     S.C - O(1)
-Node* removeN(Node* head, int n){
-    // get the length of the liked list
-    int cnt = 0;
-    Node* temp = head;
+// naive approach   T.C - O(2N)     S.C - O(1)
+// Node* removeN(Node* head, int n){
+//     // get the length of the liked list
+//     int cnt = 0;
+//     Node* temp = head;
     
-    while(temp != nullptr){
-        cnt++;
-        temp = temp->next;
+//     while(temp != nullptr){
+//         cnt++;
+//         temp = temp->next;
+//     }
+
+//     if(n == cnt ){
+//         Node* newHead = head->next;
+//         free(head);
+//         return newHead;
+//     }
+
+//     int res = cnt - n;
+
+//     temp = head;
+
+//     while(temp != nullptr){
+//         res--;
+//         if(res == 0){
+//             Node* delNode = temp->next;
+//             temp->next = temp->next->next;
+//             free(delNode);
+//         }
+//         temp = temp->next;
+//     }
+//     return head;
+// }
+
+// optimal approach -  using fast and slow pointers  T.C - O(N)      S.C - O(1)
+Node* removeN(Node* head, int n){
+    Node* fast = head;
+    Node* slow = head;
+
+    for(int i = 0; i < n; i++) fast = fast->next;
+
+    if(fast == nullptr) return head->next;
+
+    while (fast->next != nullptr)
+    {
+        slow = slow->next;
+        fast = fast->next;
     }
 
-    if(n == cnt ){
-        Node* newHead = head->next;
-        free(head);
-        return newHead;
-    }
+    Node* delNode = slow->next;
+    slow->next = slow->next->next;
+    delete delNode;
 
-    int res = cnt - n;
-
-    temp = head;
-
-    while(temp != nullptr){
-        res--;
-        if(res == 0){
-            Node* delNode = temp->next;
-            temp->next = temp->next->next;
-            free(delNode);
-        }
-        temp = temp->next;
-    }
     return head;
 }
 
