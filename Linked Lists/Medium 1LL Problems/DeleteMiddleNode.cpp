@@ -55,36 +55,57 @@ void print(Node* head){
 }
 
 // naive approach       T.C - O(N + N/2)     S.C - O(1)
+// Node* deleteMid(Node* head){
+//     if(head == nullptr || head->next == nullptr) return nullptr;
+//     int n = 0;
+//     Node* temp = head;
+
+//     while (temp)
+//     {
+//         n++;
+//         temp = temp->next;
+//     }
+
+//     int res = (n/2);
+
+//     temp = head;
+
+//     while (temp)
+//     {
+//         res--;
+//         if(res == 0){
+//             Node* delNode = temp->next;
+//             temp->next = temp->next->next;
+//             delete delNode;
+//         }
+        
+//         temp = temp->next;
+//     }
+
+//     return head;
+    
+// }
+
+
+// optimal approach         T.C - O(N)      S.C - O(1)
 Node* deleteMid(Node* head){
     if(head == nullptr || head->next == nullptr) return nullptr;
-    int n = 0;
-    Node* temp = head;
 
-    while (temp)
-    {
-        n++;
-        temp = temp->next;
+    Node* slow = head;
+    Node* fast = head->next->next;
+
+    while(fast != nullptr && fast->next != nullptr){
+        slow = slow->next;
+        fast = fast->next->next;
     }
 
-    int res = (n/2);
-
-    temp = head;
-
-    while (temp)
-    {
-        res--;
-        if(res == 0){
-            Node* delNode = temp->next;
-            temp->next = temp->next->next;
-            delete delNode;
-        }
-        
-        temp = temp->next;
-    }
+    Node* delNode = slow->next;
+    slow->next = slow->next->next;
+    delete delNode;
 
     return head;
-    
 }
+
 
 
 int main() {
