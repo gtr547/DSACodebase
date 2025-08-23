@@ -54,8 +54,9 @@ void print(Node* head){
     }
 }
 
-// naive approach       T.C - O(2N)     S.C - O(1)
+// naive approach       T.C - O(N + N/2)     S.C - O(1)
 Node* deleteMid(Node* head){
+    if(head == nullptr || head->next == nullptr) return nullptr;
     int n = 0;
     Node* temp = head;
 
