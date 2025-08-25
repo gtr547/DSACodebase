@@ -53,29 +53,56 @@ void print(Node* head){
 }
 
 // naive approach       T.C - O((n1 + n2) * log(n1 + n2))       S.C - O(n1 + n2)
+// Node* merge(Node* head1, Node* head2){
+//     vector<int> arr;
+
+//     Node* temp = head1;
+
+//     while(temp != nullptr){
+//         arr.push_back(temp->data);
+//         temp = temp->next;
+//     }
+
+//     temp = head2;
+//     while(temp != nullptr){
+//         arr.push_back(temp->data);
+//         temp = temp->next;
+//     }
+
+//     sort(arr.begin(), arr.end());
+
+//     Node* newHead = arrayToLL(arr);
+
+//     return newHead;
+// }
+
+
+// optimal approach - using dummy node      T.C - O(n + m)      S.C - O(1)
 Node* merge(Node* head1, Node* head2){
-    vector<int> arr;
+    Node* t1 = head1;
+    Node* t2 = head2;
+    Node* dNode = new Node(-1);
+    Node* temp = dNode;
 
-    Node* temp = head1;
-
-    while(temp != nullptr){
-        arr.push_back(temp->data);
-        temp = temp->next;
+    while (t1 != nullptr && t2 != nullptr)
+    {
+        if(t1->data < t2->data){
+            temp->next = t1;
+            temp = t1;
+            t1 = t1->next;
+        }
+        else
+        {
+            temp->next = t2;
+            temp = t2;
+            t2 = t2->next;
+        }
     }
+    if(t1 != nullptr) temp->next = t1;
+    else temp->next = t2;
 
-    temp = head2;
-    while(temp != nullptr){
-        arr.push_back(temp->data);
-        temp = temp->next;
-    }
-
-    sort(arr.begin(), arr.end());
-
-    Node* newHead = arrayToLL(arr);
-
-    return newHead;
+    return dNode->next;
 }
-
 
 
 
