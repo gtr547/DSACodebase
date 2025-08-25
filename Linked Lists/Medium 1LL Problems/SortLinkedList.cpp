@@ -43,31 +43,91 @@ void print(Node* head){
 }
 
 // naive approach       T.C - O(N log N)        S.C - O(N)
-Node* sort(Node* head){
-    vector<int> arr;
+// Node* sort(Node* head){
+//     vector<int> arr;
 
-    Node* temp = head;
+//     Node* temp = head;
 
-    while(temp != nullptr){
-        arr.push_back(temp->data);
-        temp = temp->next;
+//     while(temp != nullptr){
+//         arr.push_back(temp->data);
+//         temp = temp->next;
+//     }
+
+//     sort(arr.begin(), arr.end());
+
+//     temp = head;
+//     int i = 0;
+
+//     while(temp != nullptr && i<arr.size()){
+//         temp->data = arr[i];
+//         temp = temp->next;
+//         i++;
+//     }
+
+//     return head; 
+// }
+
+// getting the mid
+Node* getMid(Node* head){
+    Node* slow = head;
+    Node* fast = head->next;
+
+    while (fast != nullptr && fast->next != nullptr)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
     }
-
-    sort(arr.begin(), arr.end());
-
-    temp = head;
-    int i = 0;
-
-    while(temp != nullptr && i<arr.size()){
-        temp->data = arr[i];
-        temp = temp->next;
-        i++;
-    }
-
-    return head;
-    
+    return slow;
 }
 
+// merging two sorted list
+Node* merge(Node* head1, Node* head2){
+    Node* t1 = head1;
+    Node* t2 = head2;
+    Node* dNode = new Node(-1);
+    Node* temp = dNode;
+
+    while (t1 != nullptr && t2 != nullptr)
+    {
+        if(t1->data < t2->data){
+            temp->next = t1;
+            temp = t1;
+            t1 = t1->next;
+        }
+        else
+        {
+            temp->next = t2;
+            temp = t2;
+            t2 = t2->next;
+        }
+    }
+    if(t1 != nullptr) temp->next = t1;
+    else temp->next = t2;
+
+    Node* head = dNode->next;
+    dNode->next = nullptr;
+    delete dNode;
+    return head;
+}
+
+// optimal approach - using merge sort      T.C - O(N log N)        S.C - O(1)
+Node* sort(Node* head){
+    if(head == nullptr || head->next == nullptr) return head;
+
+    // getting the mid
+    Node* mid = getMid(head);
+    
+    Node* leftHead = head;
+    Node* rightHead = mid->next;
+    mid->next = nullptr;
+
+    // recursively calling sort(basic merge sort implementation)
+    leftHead = sort(leftHead);
+    rightHead = sort(rightHead);
+
+    // merging two sorted lists
+    return merge(leftHead, rightHead);
+}
 
 
 int main() {
