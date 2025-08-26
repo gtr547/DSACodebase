@@ -105,7 +105,6 @@ Node* merge(Node* head1, Node* head2){
 }
 
 
-
 int main() {
     // Write your code here
     vector<int> arr1;
