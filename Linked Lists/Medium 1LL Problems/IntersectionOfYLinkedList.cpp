@@ -36,14 +36,16 @@ Node* toLL(vector<int>& arr){
     return head;
 }
 
-// print linked list
-void print(Node* head){
+// length of the linked list
+int length(Node* head){
     Node* temp = head;
-
+    int cnt = 0;
     while(temp!=nullptr){
-        cout<<temp->data<<" ";
+        cnt ++;
         temp = temp->next;
     }
+
+    return cnt;
 }
 
 // create Y shaped linked list
@@ -71,28 +73,55 @@ void createY(Node* head1, Node* head2, int mergePoint){
 }
 
 // naive approach - hashing using map       T.C - O(n log n + m log m)      S.C - O(n)
-Node* findIntersection(Node* head1, Node* head2){
-    if(head1 == nullptr || head2 == nullptr) return nullptr;
+// Node* findIntersection(Node* head1, Node* head2){
+//     if(head1 == nullptr || head2 == nullptr) return nullptr;
 
-    map<Node*, int> mpp;
+//     map<Node*, int> mpp;
 
-    Node* temp = head1;
+//     Node* temp = head1;
 
-    while(temp != nullptr){
-        mpp[temp] = 1;
-        temp = temp->next;
+//     while(temp != nullptr){
+//         mpp[temp] = 1;
+//         temp = temp->next;
+//     }
+
+//     temp = head2;
+
+//     while(temp != nullptr){
+//         if(mpp.find(temp) != mpp.end()) return temp;
+//         temp = temp->next;
+//     }
+
+//     return nullptr;
+// }
+
+Node* collisionPoint(Node* t1, Node* t2, int d){
+    while (d!=0)
+    {
+        d--;
+        t2 = t2->next;
     }
 
-    temp = head2;
-
-    while(temp != nullptr){
-        if(mpp.find(temp) != mpp.end()) return temp;
-        temp = temp->next;
+    while(t1 != t2){
+        t1 = t1->next;
+        t2 = t2->next;
     }
-
-    return nullptr;
+    return t1;
+   
 }
 
+// better approach      T.C - O(n + 2m)     S.C - O(1)
+Node* findIntersection(Node* head1, Node* head2){
+    int n1 = length(head1);
+    int n2 = length(head2);
+
+    if(n1 < n2){
+        return collisionPoint(head1, head2, n2-n1);
+    }
+    else{
+        return collisionPoint(head2, head1, n1-n2);
+    }
+}
 
 
 int main() {
