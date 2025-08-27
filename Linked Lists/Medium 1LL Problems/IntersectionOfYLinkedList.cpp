@@ -111,16 +111,37 @@ Node* collisionPoint(Node* t1, Node* t2, int d){
 }
 
 // better approach      T.C - O(n + 2m)     S.C - O(1)
-Node* findIntersection(Node* head1, Node* head2){
-    int n1 = length(head1);
-    int n2 = length(head2);
+// Node* findIntersection(Node* head1, Node* head2){
+//     int n1 = length(head1);
+//     int n2 = length(head2);
 
-    if(n1 < n2){
-        return collisionPoint(head1, head2, n2-n1);
+//     if(n1 < n2){
+//         return collisionPoint(head1, head2, n2-n1);
+//     }
+//     else{
+//         return collisionPoint(head2, head1, n1-n2);
+//     }
+// }
+
+// optimal approach         T.C - O(n + m)      S.C - O(1)
+Node* findIntersection(Node* head1, Node* head2){
+    if(head1 == nullptr || head2 == nullptr) return nullptr;
+
+    Node* t1 = head1;
+    Node* t2 = head2;
+
+    while(t1 != t2){
+        t1 = t1->next;
+        t2 = t2->next;
+
+        if(t1 == t2) return t1;
+
+        if(t1 == nullptr) t1 = head2;
+        if(t2 == nullptr) t2 = head1;
     }
-    else{
-        return collisionPoint(head2, head1, n1-n2);
-    }
+    
+    return t1;
+
 }
 
 
