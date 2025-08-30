@@ -40,36 +40,86 @@ void print(Node* head){
     }
 }
 
+
+// naive approach       T.C - O(2N)        S.C - O(1)
+// Node* sort(Node* head){
+//     Node* temp = head;
+//     int cnt0 = 0, cnt1 = 0, cnt2 = 0;
+
+//     while(temp != nullptr){
+//         if(temp->data == 0) cnt0++;
+//         else if(temp->data == 1) cnt1++;
+//         else cnt2++;
+
+//         temp = temp->next; 
+//     }
+
+//     temp = head;
+
+//     while(temp != nullptr){
+//         if(cnt0){
+//             temp->data = 0;
+//             cnt0--;
+//         }
+//         else if(cnt1){
+//             temp->data = 1;
+//             cnt1--;
+//         }
+//         else{
+//             temp->data = 2;
+//             cnt2--;
+//         }
+        
+//         temp = temp->next;
+//     }
+
+//     return head;
+// }
+
+
+// optimal approach         T.C - O(N)      S.C - O(1)
 Node* sort(Node* head){
+    if(head == nullptr || head->next == nullptr) return head;
+    // dummy nodes
+    Node* zeroHead = new Node(-1);
+    Node* zero = zeroHead;
+
+    Node* oneHead = new Node(-1);
+    Node* one = oneHead;
+
+    Node* twoHead = new Node(-1);
+    Node* two = twoHead;
+
+    // traversing the linked list
     Node* temp = head;
-    int cnt0 = 0, cnt1 = 0, cnt2 = 0;
 
     while(temp != nullptr){
-        if(temp->data == 0) cnt0++;
-        else if(temp->data == 1) cnt1++;
-        else cnt2++;
-
-        temp = temp->next; 
-    }
-
-    temp = head;
-
-    while(temp != nullptr){
-        if(cnt0){
-            temp->data = 0;
-            cnt0--;
+        if(temp->data == 0){
+            zero->next = temp;
+            zero = temp;
         }
-        else if(cnt1){
-            temp->data = 1;
-            cnt1--;
+        else if(temp->data == 1){
+            one->next = temp;
+            one = temp;
         }
         else{
-            temp->data = 2;
-            cnt2--;
+            two->next = temp;
+            two = temp;
         }
-        
+
         temp = temp->next;
     }
+
+    zero->next = (oneHead->next)? oneHead->next : twoHead->next;
+    one->next = twoHead->next;
+    two->next = nullptr;
+
+    head = zeroHead->next;
+    
+    // cleaning the memory
+    delete zeroHead;
+    delete oneHead;
+    delete twoHead;
 
     return head;
 }
@@ -90,8 +140,8 @@ int main() {
 
     Node* head = toLL(arr);
 
-    print(head);
-    cout<<endl;
+    // print(head);
+    // cout<<endl;
     
     head = sort(head);
 
