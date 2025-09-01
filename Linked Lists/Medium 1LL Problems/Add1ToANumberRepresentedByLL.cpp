@@ -58,39 +58,65 @@ Node* reverse(Node* head){
     return prev;
 }
 
-// naive approach       T.C - O(2N)         S.C - O(1)
+// naive approach       T.C - O(3N)         S.C - O(1)
+// Node* addOne(Node* head){
+//     head = reverse(head);
+
+//     Node* temp = head;
+//     int carry  =  1;
+
+//     while (temp)
+//     {
+//         temp->data = temp->data + carry;
+
+//         if(temp->data < 10){
+//             carry = 0;
+//             break;
+//         }
+//         else{
+//             temp->data = 0;
+//             carry = 1;
+//         }
+
+//         temp =  temp->next;
+//     }
+
+//     if(carry == 1){
+//         Node* newHead = new Node(1);
+//         head = reverse(head);
+//         newHead->next = head;
+//         return newHead;
+//     }
+//     head = reverse(head);
+    
+//     return(head);
+    
+// }
+
+// helper function
+int helper(Node* temp){
+    if(temp == nullptr) return 1;
+
+    int carry = helper(temp->next);
+
+    temp->data = temp->data + carry;
+
+    if(temp->data < 10){
+        return 0;
+    }
+    temp->data = 0;
+    return 1;
+}
+
+// optimal solution
 Node* addOne(Node* head){
-    head = reverse(head);
-
-    Node* temp = head;
-    int carry  =  1;
-
-    while (temp)
-    {
-        temp->data = temp->data + carry;
-
-        if(temp->data < 10){
-            carry = 0;
-            break;
-        }
-        else{
-            temp->data = 0;
-            carry = 1;
-        }
-
-        temp =  temp->next;
-    }
-
+    int carry = helper(head);
+    
     if(carry == 1){
-        Node* newHead = new Node(1);
-        head = reverse(head);
-        newHead->next = head;
-        return newHead;
+        Node* newHead = new Node(1, head);
+        return newHead; 
     }
-    head = reverse(head);
-    
-    return(head);
-    
+    return head;
 }
 
 int main() {
