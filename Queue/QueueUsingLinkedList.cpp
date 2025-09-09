@@ -1,4 +1,4 @@
-// Implement a Last-In-First-Out (LIFO) stack using an linked list. The implemented stack should support the following operations: push, pop, topIndexIndex, and sizeCnt.
+// Implement a First-In-First-Out (FIFO) Queue using an linked list. The implemented Queue should support the following operations: push, pop, topIndexIndex, and sizeCnt.
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -44,7 +44,7 @@ class Queue {
 
         void push(int x){
             Node* temp = new Node(x);
-            if(start == nullptr && end == nullptr){
+            if(start == nullptr){
                 start = temp;
                 end  = temp;
                 sizeCnt = 1;
@@ -61,10 +61,15 @@ class Queue {
         void pop(){
             if(start == nullptr){
                 cout<<"Queue is Empty!"<<endl;
-                exit(1);
+                return;
             }
             Node* temp = start;
             start = temp->next;
+
+            if(start == nullptr){
+                end = nullptr;
+            }
+
             delete temp;
             sizeCnt -= 1;
         }
@@ -72,7 +77,7 @@ class Queue {
         int top(){
             if(start == nullptr){
                 cout<<"Queue is Empty! No elem on top."<<endl;
-                exit(1);
+                return -1;
             }
             return start->data;
         }
