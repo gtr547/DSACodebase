@@ -48,7 +48,7 @@ class Stack {
         void pop(){
             if (topIndex == nullptr) {
                 cout << "Stack underflow! Cannot pop from empty stack" << endl;
-                exit(1);
+                return;
             }
             Node* temp = topIndex;
             topIndex = temp->next;
@@ -59,7 +59,7 @@ class Stack {
         int top(){
             if(topIndex == nullptr){
                 cout<<"Stack is Empty! No topIndex elements"<<endl;
-                exit(1);
+                return -1;
             }
             return topIndex->data;
         }
