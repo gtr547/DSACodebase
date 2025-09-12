@@ -13,6 +13,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// better approach
 class Stack {
     stack <pair<int, int>> st;
 
