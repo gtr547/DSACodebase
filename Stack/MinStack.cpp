@@ -14,31 +14,72 @@
 using namespace std;
 
 // better approach
+// class Stack {
+//     stack <pair<int, int>> st;
+
+//     public:
+//         void push(int x){
+//             if(st.empty()){
+//                 st.push({x, x});
+//             }
+//             else{
+//                 st.push({x, min(x, st.top().second)});
+//             }
+//         }
+
+//         void pop(){
+//             st.pop();
+//         }
+
+//         int top(){
+//             return st.top().first;
+//         }
+
+//         int getMin(){
+//             return st.top().second;
+//         }
+
+// };
+
+// optimized approach
 class Stack {
-    stack <pair<int, int>> st;
+    stack <long long> st;
+    long long min = INT_MAX;
 
     public:
-        void push(int x){
+        void push(int val){
             if(st.empty()){
-                st.push({x, x});
+                st.push(val);
+                min = val;
             }
             else{
-                st.push({x, min(x, st.top().second)});
+                if(val >= min) st.push(val);
+                else {
+                    st.push(2LL * val - min);
+                    min = val;
+                }
             }
         }
 
         void pop(){
+            if(st.empty()) return;
+            long long x = st.top();
             st.pop();
+
+            if(x < min) min = 2LL * min - x;
         }
 
         int top(){
-            return st.top().first;
+            if(st.empty()) return -1;
+            long long x = st.top();
+
+            if( x < min) return min;
+            return x;
         }
 
         int getMin(){
-            return st.top().second;
+            return min;
         }
-
 };
 
 int main() {
